@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  #content
+    #content-title
+      h1 Stock Alerts
+      p.
+        You can view and manage your stock alerts from here.
+    #content-text
+      h1 Current Alerts
+        ul#alerts-list.alerts-list
+          li: include singleAlerts
+          li: include singleAlerts
+          li: include singleAlerts
+          li: include singleAlerts
+          li: include singleAlerts
+          li: include singleAlerts
+          li: include singleAlerts
+
+      button#add-alert.big-btn Create New Alert
+      button#remove-alert.big-btn Remove Alert
+      button#AorD-alert.big-btn Activate/Deactivate Alert
+      button#edit-alert.big-btn Edit Alert

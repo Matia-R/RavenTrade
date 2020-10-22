@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  div(id="stock-info")
+    h1.small-title XYZ Stock
+    h1.small-label Current Daily Information
+    div.stock-info-box
+      table.info-table
+        tr
+            td Price
+            td Low/High
+            td Bid/Ask
+            td #Shares Traded (So Far)
+        tr
+            td $12.60
+            td $12.20/$12.70
+            td $12.40/$12.60
+            td 132
+    p        
+    h1.small-label Historical Daily Information
+    div.stock-info-box
+      table.info-table
+        tr
+            td Closing Price
+            td Past Low/High
+            td Past Bid/Ask
+            td #Shares Traded/Day
+        tr
+            td $12.60
+            td $12.20/$12.70
+            td $12.40/$12.60
+            td 132
+    p        
+    h1.small-label Personal Stock Information
+    div.stock-info-box
+      table.info-table
+        tr
+            td #Shares Owned
+            td Avg Price/Shares Bought
+            td Current Market-Value of Shares Owned
+        tr
+            td 7
+            td $12.30
+            td $12.60
+
+  

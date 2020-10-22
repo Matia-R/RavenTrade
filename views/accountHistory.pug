@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  #content
+    #content-title
+      h1 Account History
+      p.
+        You can view your Account History from here.
+    #content-text
+      h1 History
+      button#filter-by-date.big-btn Filter by Date
+      button#filter-by-action.big-btn Filter by Action
+      button#clear-filters.big-btn Clear Filters
+      #acc-list-section
+        ul#acc-history-list.alerts-list
+          li: include accHisInfo
+          li: include accHisInfo
+          li: include accHisInfo
+          li: include accHisInfo
+          li: include accHisInfo
+          li: include accHisInfo
+          li: include accHisInfo
+          li: include accHisInfo
+          li: include accHisInfo
+          li: include accHisInfo
+
+    

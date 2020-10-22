@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  #content
+    #content-title
+        h1 Stock Orders
+        p.
+            You are about to place an order for ... stock.                     
+            To place your order, please fill out the order form below.
+    #content-text
+        h1 Place Order
+        #Order 
+            button#buy.big-btn Buy Shares
+            button#sell.big-btn Sell Shares
+            p Enter the number of shares you wish to buy/sell:
+            input#num-shares.clsInput
+            p Enter the amount you wish to buy/sell each share for:
+            input#user-desired-price.clsInput
+            p When do you want this order to expire:
+            button#end-day.big-btn End of Day
+            button#cancellation.big-btn Upon Cancellation 
+            p Press this button to complete your order request:
+            button#complete-order.big-btn Complete Order 

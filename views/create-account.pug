@@ -1,0 +1,18 @@
+extends credential-layout
+
+block credential-form
+  div(id="create-account-form").credential-form
+    h1 Raven Trade
+    img(id="logo" src='/img/ravens-logo.png')
+    p.credential-title Create an Account
+        div.credential-field
+          form
+            label(for="username") Username: 
+            input(type='text' name='username' placeholder='username')#set-username
+          p
+          form
+            label(for="password") Password: 
+            input(type='password' name='password' placeholder='password')#set-password
+            input(type='submit' value='⏎')#set-submit
+    a(href="login.html")#login-link or Login
+  
