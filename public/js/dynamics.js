@@ -100,15 +100,15 @@ class stock {
     }
 
     toString() {
-        console.log(`Symbol: ${this.symbol}`);
-        console.log(`Price: ${this.price}`);
-        console.log(`Bid Price: ${this.bidPrice}`);
-        console.log(`Ask price: ${this.askPrice}`);
-        console.log(`High Price: ${this.highPrice}`);
-        console.log(`Low Price: ${this.lowPrice}`);
-        console.log(`Number of Shares Traded Today: ${this.numSharesToday}`);
-        console.log(`Number of Shares Owned: ${this.numOwned}`);
-        console.log(`Average Price Paid: ${this.avgPricePaid}`);
+        return `Symbol: ${this.symbol}`
+                + `Price: ${this.price}`
+                + `Bid Price: ${this.bidPrice}`
+                + `Ask price: ${this.askPrice}`
+                + `High Price: ${this.highPrice}`
+                + `Low Price: ${this.lowPrice}`
+                + `Number of Shares Traded Today: ${this.numSharesToday}`
+                + `Number of Shares Owned: ${this.numOwned}`
+                + `Average Price Paid: ${this.avgPricePaid}`;
         
     }
 }
@@ -118,6 +118,12 @@ class ownedStock {
         this.numSharesOwned = boughtStock;
         this.avgPricePaid = pricePerStock;
         this.currentValue = 0;
+    }
+
+    toString() {
+        return `Number of Shares Owned: ${this.numSharesOwned}`
+                + `Average Price Paid: ${this.avgPricePaid}`
+                + `Current Value: ${this.currentValue}` 
     }
 }
 
