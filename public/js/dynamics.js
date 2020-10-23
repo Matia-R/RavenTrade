@@ -68,8 +68,14 @@ class user {
     }
 
     // account history methods
-    logEvent(date, event, description) {
-        var log = new historyLog(date, event, description);
+    logEventDW(date, event, amount) {
+        var log = new historyLog(date, event, amount);
+        this.accounHistory.push(log);
+        this.filteredAccountHistory.push(log);
+    }
+
+    logEventBS(date, event, numShares, price, symbol) {
+        var log = new historyLog(date, event, numShares, price, symbol);
         this.accounHistory.push(log);
         this.filteredAccountHistory.push(log);
     }
@@ -119,12 +125,31 @@ class user {
     }
 
     // orders methods
-    makeOrder(symbol, typeorder, price, numShares, expiry) {
-        var o = new order(symbol, typeorder, price, numShares, expiry);
+    makeOrder(symbol, typeorder, price, numShares, expiry, stock) {
+        var o = new order(symbol, typeorder, price, numShares, expiry, stock);
         this.orders.push(o);
     }
 
+    orderCompleted(order) {
+        this.userStocks.push(order.stock);
+        if (type) {
+            balance -= Number(price*numShares);
+            this.setPortfolioValue();
+        }
+        else {
+            balance -= Number(price*numShares);
+            this.setPortfolioValue();
+        }
+        this.orders.pop(order);
+    }
 
+    ordersToString() {
+        var string = "Orders: \n";
+        for (o in this.orders) {
+            string += "\n" + o.toString();
+        }
+        return string;
+    }
 
 }
 
@@ -165,17 +190,18 @@ class ownedStock {
     toString() {
         return `Number of Shares Owned: ${this.numSharesOwned}`
                 + `Average Price Paid: ${this.avgPricePaid}`
-                + `Current Value: ${this.currentValue}` 
+                + `Current Value: ${this.currentValue}`; 
     }
 }
 
 class order {
-    constructor(symbol, typeorder, price, numShares, expiry) {
+    constructor(symbol, typeorder, price, numShares, expiry, stock) {
         this.symbol = symbol;
         this.typeOrder = typeorder;
         this.priceEntered = price;
         this.numSharesOrdered = numShares;
         this.expireEndDay = expiry;
+        this.stock = stock;
         // notification
     }
 
@@ -271,7 +297,7 @@ class alert  {
     }
 } 
 
-class historyLog {
+class historyLogWD {
     constructor(date, event, amount) {
         this.date = date;
         this.eventType = event; //buy = 0, sell = 1, withdraw = 2, deposit = 3
@@ -279,6 +305,25 @@ class historyLog {
         this.description = setDescriptionWD();
     }
 
+    displayDate() {
+        return this.date.subString(0,2) + "-" + this.date.subString(2,4) + "-" + this.date.subString(4,8);
+    }
+
+    setDescription() {
+        if (Number(this.eventType) === 2) {
+            return "Withdrew " + this.amount + " from account.";
+        }
+        else {
+            return "Deposited " + this.amount + " into account.";
+        }
+    }
+
+    toString() {
+        return this.displayDate() + "\n" +  this.description;  
+    }
+}
+
+class historyLogBS {
     constructor(date, event, numShares, price, symbol) {
         this.date = date;
         this.symbol = symbol;
@@ -292,16 +337,7 @@ class historyLog {
         return this.date.subString(0,2) + "-" + this.date.subString(2,4) + "-" + this.date.subString(4,8);
     }
 
-    setDescriptionWD() {
-        if (Number(this.eventType) === 2) {
-            return "Withdrew " + this.amount + " from account.";
-        }
-        else {
-            return "Deposited " + this.amount + " into account.";
-        }
-    }
-
-    setDescriptionBS() {
+    setDescription() {
         if (Number(this.eventType) === 0) {
             return "Bought " + this.numShares + " of " + this.symbol + " for " + Number(this.numShares*this.price) + " (" + this.price + " each)";
         }
@@ -313,6 +349,7 @@ class historyLog {
     toString() {
         return this.displayDate() + "\n" +  this.description;  
     }
+
 }
 
 
@@ -382,16 +419,29 @@ console.log(verifyCredentials("JohnDoe", "password"));
 console.log(verifyCredentials("JohnDenver", "password"));
 
 users[0].deposit(5000);
-console.log(users[0].balance);
+console.log("Balance =");
+console.log(users[0].balance + "\n");
+users[0].logEventDW(10232020, 3, 5000);
 
 users[0].withdraw(2000);
-console.log(users[0].balance);
+console.log("Balance =");
+console.log(users[0].balance + "\n");
+users[0].logEventDW(10232020, 2, 2000);
 
 users[0].createWatchlist("Fav Watchlist");
 users[0].watchlists.addStockToWatchlist(stock1);
 users[0].watchlists.addStockToWatchlist(stock3);
 console.log(users[0].watchlistsToString());
 
+users[0].makeOrder("XYZ", true, database[0].price, 10, false, database[0]);
+console.log(users[0].ordersToString());
+console.log("\nTime passes so order is now completed!\n");
+users[0].orderCompleted(users[0].orders[0]);
+users[0].logEventBS(10232020, 0, 10, database[0].price, "XYZ");
+console.log(users[0].userStocks[0]);
+
+users[0].createAlert(false, "AAA", 12, true);
+console.log(users[0].alertsToString());
 
 
 
