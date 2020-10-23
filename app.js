@@ -35,7 +35,7 @@ app.use('/orders', ordersRouter);
 app.use('/stock-info', stockInfoRouter);
 app.use('/watchlists', watchlistRouter);
 app.use('/alerts', alertsRouter);
-app.use('/account', accountHistoryRouter);
+app.use('/accountHistory', accountHistoryRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
