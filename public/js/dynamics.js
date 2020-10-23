@@ -204,12 +204,12 @@ class watchlist {
         this.watchlistName = name;
     }
 
-    addStockToWatchlist(symbol) {
-        this.stocks.push(findStock(symbol));
+    addStockToWatchlist(stock) {
+        this.stocks.push(stock);
     }
 
-    removeStockFromWatchlist(symbol) {
-        this.stocks.pop(findStock(symbol));
+    removeStockFromWatchlist(stock) {
+        this.stocks.pop(stock);
     }
 
     toString() {
@@ -353,7 +353,7 @@ var users = [];
 
 //creates user account, returns user
 function createAccount(username, password) {
-    let user = new User(username, password);
+    var user = new User(username, password);
     users.push(user);
     return user;
 }
@@ -368,20 +368,27 @@ function verifyCredentials(username, password) {
     return false;
 }
 
-var user1 = new user("JohnDoe", "password");
-var user2 = new user("Ethan", "myPSWD");
-var user3 = new user("Matia", "somePSWD");
-users.push(user1);
-users.push(user2);
-users.push(user3);
+createAccount("JohnDoe", "password");
+createAccount("Ethan", "myPSWD");
+createAccount("Matia", "somePSWD");
 
-function findStock(symbol) {
-    for (s in database) {
-        if (symbol === s.symbol) {
-            return s;
-        }
-    }
-}
+console.log(verifyCredentials("JohnDoe", "password"));
+console.log(verifyCredentials("JohnDenver", "password"));
+
+users[0].deposit(5000);
+console.log(users[0].balance);
+
+users[0].withdraw(2000);
+console.log(users[0].balance);
+
+users[0].createWatchlist("Fav Watchlist");
+users[0].watchlists.addStockToWatchlist(stock1);
+users[0].watchlists.addStockToWatchlist(stock3);
+console.log(users[0].watchlistsToString());
+
+
+
+
 
 
 
