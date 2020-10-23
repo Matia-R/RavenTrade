@@ -9,20 +9,12 @@ block content
     #content-text
       h1 Watchlists
       select#watch-dropdown.clsDropdown 
-        option.clsOption(value="1") Watchlist #1
-        option.clsOption(value="2") Watchlist #2
-        option.clsOption(value="3") Watchlist #3
-        option.clsOption(value="4") Watchlist #4
+        option#watchlist1.clsOption(value="0") Watchlist #1
+        option#watchlist2.clsOption(value="1") Watchlist #2
+        option#watchlist3.clsOption(value="2") Watchlist #3
+        option#watchlist4.clsOption(value="3") Watchlist #4
       #watch-list-section
-        ul#watchlist.stock-list
-          li XYZ
-          li XYZ
-          li XYZ
-          li XYZ
-          li XYZ
-          li XYZ
-          li XYZ
-          li XYZ
+        ul#wlist.stock-list
       button#delete-watchlist.big-btn Delete Watchlist
       button#unwatch-stock.big-btn Unwatch Stock
       p Create New Watchlist:
