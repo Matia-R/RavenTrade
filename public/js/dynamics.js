@@ -14,6 +14,23 @@ class user {
         this.alerts = [];
     }
 
+    //fund methods
+    withdraw(amount) {
+       this.balance -= Number(amount); 
+    }
+
+    deposit(amount) {
+        this.balance += Number(amount);
+    }
+
+    setPortfolioValue() {
+        portVal = 0.0;
+        for (s in this.userStocks) {
+            portVal += s.price;
+        }
+        return portVal;
+    }
+
     // watchlist methods
     createWatchlist(name) {
         var w = new watchlist(name);
@@ -124,7 +141,18 @@ class stock {
         this.avgPricePaid = 0.0;
     }
 
-
+    toString() {
+        console.log(`Symbol: ${this.symbol}`);
+        console.log(`Price: ${this.price}`);
+        console.log(`Bid Price: ${this.bidPrice}`);
+        console.log(`Ask price: ${this.askPrice}`);
+        console.log(`High Price: ${this.highPrice}`);
+        console.log(`Low Price: ${this.lowPrice}`);
+        console.log(`Number of Shares Traded Today: ${this.numSharesToday}`);
+        console.log(`Number of Shares Owned: ${this.numOwned}`);
+        console.log(`Average Price Paid: ${this.avgPricePaid}`);
+        
+    }
 }
 
 class ownedStock { 
@@ -322,6 +350,23 @@ database.push(stock2);
 database.push(stock3);
 
 var users = [];
+
+//creates user account, returns user
+function createAccount(username, password) {
+    let user = new User(username, password);
+    users.push(user);
+    return user;
+}
+
+//verifies user cred, returns true if user cred are valid, false otherwise
+function verifyCredentials(username, password) {
+    for (u in users) {
+        if (username === u.username && password === u.password) {
+            return true;
+        }
+    }
+    return false;
+}
 
 var user1 = new user("JohnDoe", "password");
 var user2 = new user("Ethan", "myPSWD");
