@@ -81,6 +81,8 @@ class stock {
         this.numOwned = 0;
         this.avgPricePaid = 0.0;
     }
+
+
 }
 
 class ownedStock { 
@@ -153,6 +155,34 @@ class historyLog {
 
 
 
+/*Event Listeners
+document.getElementsByClassName("clsOption").addEventListener("click", displayWatchlist);
+
+displays listof stocks in a selected watch list
+function displayWatchlist() {
+    var clickedWatchlist = document.getElementsByClassName("clsOption").value;
+    var wlist = user.watchlists[clickedWatchlist];
+    var list = document.getElementsById("wlist");
+    for (var prop in wlist) {
+        list.innerHTML += prop;
+    }
+}
+
+document.getElementsById("delete-watchlist").addEventListener("click", deleteWlist);
+
+function deleteWlist() {
+    var clickedWatchlist = document.getElementsByClassName("clsOption").value;
+    var wlist = user.watchlists[clickedWatchlist];
+    user.watchlists.pop(wlist);
+    document.getElementsById(`watchlist${clickedWatchlist}`).remove();
+}
+
+*/
+
+
+
+
+
 // Sample testing code and objects - will be replaced by actual database 
 var database = [];
 
@@ -163,9 +193,14 @@ database.push(stock1);
 database.push(stock2);
 database.push(stock3);
 
+var users = [];
+
 var user1 = new user("JohnDoe", "password");
 var user2 = new user("Ethan", "myPSWD");
 var user3 = new user("Matia", "somePSWD");
+users.push(user1);
+users.push(user2);
+users.push(user3);
 
 function findStock(symbol) {
     for (s in database) {
