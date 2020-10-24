@@ -407,9 +407,9 @@ function createAccount(username, password) {
 }
 
 //verifies user cred, returns true if user cred are valid, false otherwise
-function verifyCredentials(user1, pass) {
-    for (u in users) {
-        if (user1 === u.username && pass === u.password) {
+function verifyCredentials(username, password) {
+    for (i = 0; i < users.length; i++) {
+        if (username === users[i].username && password === users[i].password) {
             return true;
         }
     }
@@ -420,8 +420,8 @@ createAccount("JohnDoe", "password");
 createAccount("Ethan", "myPSWD");
 createAccount("Matia", "somePSWD");
 
-console.log(verifyCredentials(users[0].username, users[0].password));
-console.log(verifyCredentials("JohnDenver", "password"));
+console.log(verifyCredentials(users[0].username, users[0].password, users));
+console.log(verifyCredentials("JohnDenver", "password", users));
 
 users[0].deposit(5000);
 console.log("Balance =");
