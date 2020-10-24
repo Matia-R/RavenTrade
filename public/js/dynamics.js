@@ -1,6 +1,6 @@
 //Adding js code to handle events and manage data on website
 
-class user {
+class User {
     constructor(username, password) {
         this.username = username;
         this.password = password;
@@ -24,8 +24,8 @@ class user {
     }
 
     setPortfolioValue() {
-        portVal = 0.0;
-        for (s in this.userStocks) {
+        var portVal = 0.0;
+        for (var s in this.userStocks) {
             portVal += s.price;
         }
         return portVal;
@@ -33,7 +33,7 @@ class user {
 
     // watchlist methods
     createWatchlist(name) {
-        var w = new watchlist(name);
+        var w = new Watchlist(name);
         this.watchlists.push(w); 
     }
 
@@ -42,16 +42,16 @@ class user {
     }
 
     watchlistsToString() {
-        var string = "Watchlists: "
-        for (w in this.watchlists) {
-            string += "\n\n" + w.name + ":\n" + w.toString();
+        var str = "Watchlists: "
+        for (var w in this.watchlists) {
+            str += "\n\n" + w.name + ":\n" + w.toString();
         }
-        return string + "\n\n";
+        return str + "\n\n";
     }
 
     // alert methods
     createAlert(active, symbol, condition, overUnder) {
-        var a = new alert(active, symbol, condition, overUnder);
+        var a = new Alert(active, symbol, condition, overUnder);
         this.alerts.push(a);
     }
 
@@ -60,29 +60,32 @@ class user {
     }
 
     alertsToString() {
-        var string = "Alerts: \n";
-        for (a in this.alerts) {
-            string += "\n" + a.toString();
+        var str = "Alerts: \n";
+        for (var a in this.alerts) {
+            str += "\n" + a.toString();
         }
-        return string + "\n\n";
+        return str + "\n\n";
     }
 
     // account history methods
     logEventDW(date, event, amount) {
-        var log = new historyLog(date, event, amount);
+        var log = new HistoryLogWD(date, event, amount);
+        log.setDescription();
         this.accounHistory.push(log);
         this.filteredAccountHistory.push(log);
+        
     }
 
     logEventBS(date, event, numShares, price, symbol) {
-        var log = new historyLog(date, event, numShares, price, symbol);
+        var log = new HistoryLogBS(date, event, numShares, price, symbol);
+        log.setDescription();
         this.accounHistory.push(log);
         this.filteredAccountHistory.push(log);
     }
 
     filterByEvent(event) {
         var filtered = [];
-        for (log in this.accounHistory) {
+        for (var log in this.accounHistory) {
             //set all items of event to display
             // and others not too
             if (log.event === event) {
@@ -94,7 +97,7 @@ class user {
 
     filterByDateRange(start, end) {
         var filtered = [];
-        for (log in this.accounHistory) {
+        for (var log in this.accounHistory) {
             //set all items that are in date range to display
             // and others not too
             if (log.date >= start && log.date <= end) {
@@ -109,51 +112,53 @@ class user {
     }
 
     accounHistoryToString() {
-        var string = "Account History: \n"
-        for (l in this.accounHistory) {
-            string += "\n" + l.toString();
+        var str = "Account History: \n"
+        for (var l in this.accounHistory) {
+            str += "\n" + l.toString();
         }
-        return string + "\n\n";
+        return str + "\n\n";
     }
 
     filteredAccounHistoryToString() {
-        var string = "Filtered Account History: \n"
-        for (l in this.filteredAccounHistory) {
-            string += "\n" + l.toString();
+        var str = "Filtered Account History: \n"
+        for (var l in this.filteredAccounHistory) {
+            str += "\n" + l.toString();
         }
-        return string + "\n\n";
+        return str + "\n\n";
     }
 
     // orders methods
     makeOrder(symbol, typeorder, price, numShares, expiry, stock) {
-        var o = new order(symbol, typeorder, price, numShares, expiry, stock);
+        var o = new Order(symbol, typeorder, price, numShares, expiry, stock);
         this.orders.push(o);
     }
 
     orderCompleted(order) {
+        order.stock.numSharesOrdered = order.numShares;
+        order.stock.avgPricePaid = order.priceEntered;
         this.userStocks.push(order.stock);
-        if (type) {
-            balance -= Number(price*numShares);
+        if (order.typeOrder) {
+            this.balance -= Number(this.price*this.numShares);
             this.setPortfolioValue();
         }
         else {
-            balance -= Number(price*numShares);
+            this.balance -= Number(this.price*this.numShares);
             this.setPortfolioValue();
         }
         this.orders.pop(order);
     }
 
     ordersToString() {
-        var string = "Orders: \n";
-        for (o in this.orders) {
-            string += "\n" + o.toString();
+        var str = "Orders: \n";
+        for (var o in this.orders) {
+            str += "\n" + o.toString();
         }
-        return string;
+        return str;
     }
 
 }
 
-class stock {
+class Stock {
     constructor(symbol, price) {
         this.symbol = symbol;
         this.price = price;
@@ -167,20 +172,20 @@ class stock {
     }
 
     toString() {
-        return `Symbol: ${this.symbol}`
-                + `Price: ${this.price}`
-                + `Bid Price: ${this.bidPrice}`
-                + `Ask price: ${this.askPrice}`
-                + `High Price: ${this.highPrice}`
-                + `Low Price: ${this.lowPrice}`
-                + `Number of Shares Traded Today: ${this.numSharesToday}`
-                + `Number of Shares Owned: ${this.numOwned}`
-                + `Average Price Paid: ${this.avgPricePaid}`;
+        return `Symbol: ${this.symbol} `
+                + `Price: ${this.price} `
+                + `Bid Price: ${this.bidPrice} `
+                + `Ask price: ${this.askPrice} `
+                + `High Price: ${this.highPrice} `
+                + `Low Price: ${this.lowPrice} `
+                + `Number of Shares Traded Today: ${this.numSharesToday} `
+                + `Number of Shares Owned: ${this.numOwned} `
+                + `Average Price Paid: ${this.avgPricePaid} `;
         
     }
 }
 
-class ownedStock { 
+class OwnedStock { 
     constructor(boughtStock, pricePerStock) {
         this.numSharesOwned = boughtStock;
         this.avgPricePaid = pricePerStock;
@@ -194,7 +199,7 @@ class ownedStock {
     }
 }
 
-class order {
+class Order {
     constructor(symbol, typeorder, price, numShares, expiry, stock) {
         this.symbol = symbol;
         this.typeOrder = typeorder;
@@ -230,30 +235,30 @@ class order {
 
 }
 
-class watchlist {
+class Watchlist {
     constructor(name) {
-        this.stocks = [];
+        this.wStocks = [];
         this.watchlistName = name;
     }
 
     addStockToWatchlist(stock) {
-        this.stocks.push(stock);
+        this.wStocks.push(stock);
     }
 
     removeStockFromWatchlist(stock) {
-        this.stocks.pop(stock);
+        this.wStocks.pop(stock);
     }
 
     toString() {
-        var string = ""; 
-        for (s in this.stocks) {
-            string += "\n" + s.toString();
+        var str = ""; 
+        for (var s in this.wStocks) {
+            str += "\n" + s.toString();
         }
-        return string;
+        return str;
     }
 }
 
-class alert  {
+class Alert {
     constructor(active, symbol, condition, increase) {
         this.active = active;
         this.symbol = symbol;
@@ -297,12 +302,12 @@ class alert  {
     }
 } 
 
-class historyLogWD {
+class HistoryLogWD {
     constructor(date, event, amount) {
         this.date = date;
         this.eventType = event; //buy = 0, sell = 1, withdraw = 2, deposit = 3
         this.amount = amount;
-        this.description = setDescriptionWD();
+        this.description = "";
     }
 
     displayDate() {
@@ -311,10 +316,10 @@ class historyLogWD {
 
     setDescription() {
         if (Number(this.eventType) === 2) {
-            return "Withdrew " + this.amount + " from account.";
+            this.description = "Withdrew " + this.amount + " from account.";
         }
         else {
-            return "Deposited " + this.amount + " into account.";
+            this.description = "Deposited " + this.amount + " into account.";
         }
     }
 
@@ -323,14 +328,14 @@ class historyLogWD {
     }
 }
 
-class historyLogBS {
+class HistoryLogBS {
     constructor(date, event, numShares, price, symbol) {
         this.date = date;
         this.symbol = symbol;
         this.eventType = event; //buy = 0, sell = 1, withdraw = 2, deposit = 3
         this.numShares = numShares;
         this.price = price;
-        this.description = setDescriptionBS();
+        this.description = "";
     }
 
     displayDate() {
@@ -385,9 +390,9 @@ function deleteWlist() {
 // Sample testing code and objects - will be replaced by actual database 
 var database = [];
 
-var stock1 = new stock('XYZ', 5.6);
-var stock2 = new stock('ABC', 9.8);
-var stock3 = new stock('AAA', 12.0);
+var stock1 = new Stock('XYZ', 5.6);
+var stock2 = new Stock('ABC', 9.8);
+var stock3 = new Stock('AAA', 12.0);
 database.push(stock1);
 database.push(stock2);
 database.push(stock3);
@@ -402,9 +407,9 @@ function createAccount(username, password) {
 }
 
 //verifies user cred, returns true if user cred are valid, false otherwise
-function verifyCredentials(username, password) {
+function verifyCredentials(user1, pass) {
     for (u in users) {
-        if (username === u.username && password === u.password) {
+        if (user1 === u.username && pass === u.password) {
             return true;
         }
     }
@@ -415,7 +420,7 @@ createAccount("JohnDoe", "password");
 createAccount("Ethan", "myPSWD");
 createAccount("Matia", "somePSWD");
 
-console.log(verifyCredentials("JohnDoe", "password"));
+console.log(verifyCredentials(users[0].username, users[0].password));
 console.log(verifyCredentials("JohnDenver", "password"));
 
 users[0].deposit(5000);
@@ -423,26 +428,31 @@ console.log("Balance =");
 console.log(users[0].balance + "\n");
 users[0].logEventDW(10232020, 3, 5000);
 
+
 users[0].withdraw(2000);
 console.log("Balance =");
 console.log(users[0].balance + "\n");
 users[0].logEventDW(10232020, 2, 2000);
 
+
 users[0].createWatchlist("Fav Watchlist");
-users[0].watchlists.addStockToWatchlist(stock1);
-users[0].watchlists.addStockToWatchlist(stock3);
-console.log(users[0].watchlistsToString());
+users[0].watchlists[0].addStockToWatchlist(database[0]);
+users[0].watchlists[0].addStockToWatchlist(database[2]);
+console.log("\n\nFav Watchlist: \n\n" + users[0].watchlists[0].wStocks[0].toString());
+console.log("\n\n" + users[0].watchlists[0].wStocks[1].toString());
 
 users[0].makeOrder("XYZ", true, database[0].price, 10, false, database[0]);
-console.log(users[0].ordersToString());
-console.log("\nTime passes so order is now completed!\n");
+console.log("\nOrder: \n\n" + users[0].orders[0].toString());
+console.log("\nTime passes so order is now completed!\n\n");
 users[0].orderCompleted(users[0].orders[0]);
-users[0].logEventBS(10232020, 0, 10, database[0].price, "XYZ");
-console.log(users[0].userStocks[0]);
+var event3 = users[0].logEventBS(10232020, 0, 10, database[0].price, "XYZ");
+console.log("Users Stocks: \n\n" + users[0].userStocks[0].toString());
 
-users[0].createAlert(false, "AAA", 12, true);
-console.log(users[0].alertsToString());
+users[0].createAlert(true, "AAA", 12, true);
+console.log("\nAlerts: \n\n" + users[0].alerts[0].toString());
+users[0].portfolioValue = 56;
 
+console.log("\nPortfolio Value: \n\n" + users[0].portfolioValue);
 
 
 
