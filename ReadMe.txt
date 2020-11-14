@@ -3,34 +3,39 @@ Project: Stock Market
 Partners: Ethan Brydon (101157918) AND Matia Raspopovic (101155148)
 
 ------------------------------------------------------------------------------------------------------------------
-Setup Instructions:
-------------------------------------------------------------------------------------------------------------------
-
-The Web App runs using an Express Node.js server, so to properly setup the environment ensure Node.js is installed
-on your system and navigate to the root directory in terminal/cmd and enter the following command:
-
-npm install
-
-If done correctly, a folder called "node_modules" will have been created in the root directory. These modules
-are required for the server to run and for the app engine to function.
-
-------------------------------------------------------------------------------------------------------------------
-Running the App:
-------------------------------------------------------------------------------------------------------------------
-
-After following the setup, you can run the server by navigating to the root directory in terminal/cmd and entering 
-the following command:
-
-npm start
-
-Now, to access the app itself, open any web browser and enter the URL localhost:3000 (as the sevrer is running on
-port 300). This will take you to the login page of the app (index).
-
-------------------------------------------------------------------------------------------------------------------
 Open Stack Information:
 ------------------------------------------------------------------------------------------------------------------
 
+To access the server OpenStack server which contains our code and other relevant files, open your terminal and enter
+the following command:
 
+student@134.117.128.242
+
+You will be prompted for a password, enter:
+
+student
+
+*note the ip address of the server follows the "@" in the command.
+
+To launch the app, enter the command:
+
+npm start
+
+Now, open a new terminal and enter the command:
+
+ssh -L 9999:localhost:3000 student@134.117.128.242
+
+*note again the ip address is the same as before.
+
+Now to access the app itself, open a web browser and enter the URL:
+
+localhost:9999
+
+*This is the tunneled port
+
+Should any issues arise, terminate the instance of the server and try again. If any files are missing or serious
+missing-module errors occur (or something to that effect) please contact us at matiaraspopovic@cmail.carleton.ca as
+we do not anticipate this and tested thoroughly.
 
 ------------------------------------------------------------------------------------------------------------------
 Additional Features:
@@ -44,6 +49,7 @@ Important Notes:
 ------------------------------------------------------------------------------------------------------------------
 
 Our express works for the user login and create account page, however, we were unable to get our user sessions
-working. As a result, many of our user dependent methods won't run properly; so to show our plan. We
+working. As a result, many of our user dependent methods won't run properly; so to show our plan we
 have created all the (post, delete, patch, and get) requests that we plan on using and have outlined what they 
-will do when we have user sessions up and running. 
+will do when we have user sessions up and running. Note you can login and create an account without issue - only
+a unique session will not be created on login. 
