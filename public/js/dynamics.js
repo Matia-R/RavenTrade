@@ -1,5 +1,10 @@
 //Adding js code to handle events and manage data on website
 
+module.exports = {
+    createAccount,
+    verifyCredentials
+}
+
 class User {
     constructor(username, password) {
         this.username = username;

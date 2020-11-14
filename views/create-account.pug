@@ -6,11 +6,10 @@ block credential-form
     img(id="logo" src='/img/ravens-logo.png')
     p.credential-title Create an Account
         div.credential-field
-          form
+          form(method="post" action="/create-account")
             label(for="username") Username: 
             input(type='text' name='username' placeholder='username')#set-username
-          p
-          form
+            p
             label(for="password") Password: 
             input(type='password' name='password' placeholder='password')#set-password
             input(type='submit' value='⏎')#set-submit

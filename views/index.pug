@@ -1,18 +1,17 @@
 extends credential-layout
 
 block credential-form
-  div(id="login-form").credential-form
+  div(id="login-form" action="/login" method="POST").credential-form
     h1 Raven Trade
     img(id="logo" src='/img/ravens-logo.png')
     p.credential-title Login
         div.credential-field
-          form
+          form(method="post" action="/")
             label(for="username") Username: 
             input(type='text' name='username' placeholder='username')#check-username
-          p
-          form
+            p
             label(for="password") Password: 
             input(type='password' name='password' placeholder='password')#check-password
-            input(href='/portfolio' type='submit' value='⏎')#check-submit
+            input(type='submit' value='⏎')#check-submit
     a(href="/create-account")#create-account-link or Create an Account
   
