@@ -27,18 +27,23 @@ Now, to access the app itself, open any web browser and enter the URL localhost:
 port 300). This will take you to the login page of the app (index).
 
 ------------------------------------------------------------------------------------------------------------------
-Business Logic:
+Open Stack Information:
 ------------------------------------------------------------------------------------------------------------------
 
-The business logic of the program can be found in Project Check-In #2/public/js/dynamics.js . The logic has not yet
-been integrated with the UI so simply run the file in an IDE and view some sample test results in the console.
+
 
 ------------------------------------------------------------------------------------------------------------------
 Additional Features:
 ------------------------------------------------------------------------------------------------------------------
 
-Some routing between pages has been implemented using Express routers. This can be seen in Project Check-In #2/app.js
-(app engine), and Project Check-In #2/routes (js routing files for each page). There is not currently routing from
-the login/create account pages to the core app pages yet so to access the rest of the pages, simply add '/portfolio'
-to the end of the url when running, and any routing from then on will be functional within the links. 
+- Created CORS error checking, allowing for clients on other ports to do things 
+  on the server.
 
+------------------------------------------------------------------------------------------------------------------
+Important Notes:
+------------------------------------------------------------------------------------------------------------------
+
+Our express works for the user login and create account page, however, we were unable to get our user sessions
+working. As a result, many of our user dependent methods won't run properly; so to show our plan. We
+have created all the (post, delete, patch, and get) requests that we plan on using and have outlined what they 
+will do when we have user sessions up and running. 
