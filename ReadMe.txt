@@ -1,4 +1,4 @@
-Date: 07/10/2020
+Date: 14/11/2020
 Project: Stock Market
 Partners: Ethan Brydon (101157918) AND Matia Raspopovic (101155148)
 

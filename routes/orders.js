@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('orders', { title: 'Orders' });
 });
 
+router.post('/', (req, res, next) =>{
+  //creates new order
+});
+
 module.exports = router;
