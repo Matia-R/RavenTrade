@@ -3,6 +3,22 @@ Project: Stock Market
 Partners: Ethan Brydon (101157918) AND Matia Raspopovic (101155148)
 
 ------------------------------------------------------------------------------------------------------------------
+Setup Instructions (Locally):
+------------------------------------------------------------------------------------------------------------------
+
+The Web App runs using an Express Node.js server, so to properly setup the environment ensure Node.js is installed
+on your system and navigate to the root directory in terminal/cmd and enter the following command:
+
+npm install
+
+If done correctly, a folder called "node_modules" will have been created in the root directory. These modules
+are required for the server to run and for the app engine to function.
+
+------------------------------------------------------------------------------------------------------------------
+Running the App (Locally):
+------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------
 Open Stack Information:
 ------------------------------------------------------------------------------------------------------------------
 

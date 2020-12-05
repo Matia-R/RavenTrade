@@ -8,10 +8,10 @@ block credential-form
         div.credential-field
           form(method="post" action="/")
             label(for="username") Username: 
-            input(type='text' name='username' placeholder='username')#check-username
+            input(type='text' name='username' placeholder='username' required)#check-username
             p
             label(for="password") Password: 
-            input(type='password' name='password' placeholder='password')#check-password
+            input(type='password' name='password' placeholder='password' required)#check-password
             input(type='submit' value='⏎')#check-submit
     a(href="/create-account")#create-account-link or Create an Account
   

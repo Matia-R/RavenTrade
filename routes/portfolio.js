@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var authenticator = require('../public/js/authenticator.js');
 
 /* GET home/portfolio page. */
 router.get('/', function(req, res, next) {
-  res.render('portfolio', { title: 'Portfolio' });
+  console.log("about to auth");
+  if (authenticator.auth(req, next)) {
+    res.render('portfolio', { title: 'Portfolio' });
+  } else {
+    res.send(401, "Not Authorized");
+  }
 });
 
 router.post('/', (req, res, next) =>{

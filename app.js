@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var createAccountRouter = require('./routes/create-account');
@@ -15,6 +16,7 @@ var alertsRouter = require('./routes/alerts');
 var accountHistoryRouter = require('./routes/accountHistory');
 var usersRouter = require('./routes/users');
 var errorRouter = require('./routes/error');
+const { verifyCredentials } = require('./public/js/dynamics');
 
 var app = express();
 
@@ -27,6 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'some secret here'}))
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -67,4 +70,4 @@ app.use(function(err, req, res, next) {
   
 });
 
-module.exports = app;
+module.exports = app, session;

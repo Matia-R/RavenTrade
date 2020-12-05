@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var authenticator = require('../public/js/authenticator.js');
 
 /* GET alerts page. */
 router.get('/', function(req, res, next) {
-  res.render('alerts', { title: 'My Alerts' });
+  console.log("about to auth");
+  if (authenticator.auth(req, next)) {
+    res.render('alerts', { title: 'My Alerts' });
+  } else {
+    res.send(401, "Not Authorized");
+  }
 });
 
 router.patch('/', (req, res, next) =>{
