@@ -3,12 +3,11 @@ var router = express.Router();
 var authenticator = require('../public/js/authenticator.js');
 var model = require('../public/js/dynamics.js');
 
-history = {
-  logs: model.getCurrUser().logsToString()
-}
-
 /* GET account history page. */
 router.get('/', function(req, res, next) {
+  history = {
+    logs: model.getCurrUser().logsToString()
+  }
   console.log("about to auth");
   if (authenticator.auth(req, next)) {
     res.render('accountHistory', { title: 'My Account', accHis: history });
