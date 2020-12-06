@@ -5,8 +5,10 @@ block content
     div(id="port-info")
       div(id="port-value").port-info-box
         h1 Portfolio Value:
+        h2 $#{userInfo.portfolioValue}
       div(id="port-balance").port-info-box
         h1 Current Balance:
+        h2 $#{userInfo.portfolioBalance}
       div(id="funds-btn-box").port-info-box
         button(id="withdraw-btn").big-btn Withdraw Funds
         button(id="deposit-btn").big-btn Deposit Funds
@@ -14,29 +16,15 @@ block content
       div(id="owned-stock-title").stock-info-box
         h1 Current Portfolio
       div(id="owned-stock-box").stock-info-box
+        - var n = 0
         ul(id="owned-stock-list").stock-list
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
-          li(tabindex=1) XYZ
+          each stock in userInfo.portfolio
+            li(tabindex = n++) #{stock.symbol} $#{stock.price}
+          br
       div(id="owned-stock-btn").stock-info-box
         button(id="btn-orders" onclick="window.location.href='/orders'").big-btn Orders
         button(id="btn-browse-stocks" onclick="window.location.href='/stocks'").big-btn Browse Stocks
-        button(id="btn-watchlist" onclick="window.location.href='/watchlist'").big-btn Watchlists
+        button(id="btn-watchlist" onclick="window.location.href='/watchlists'").big-btn Watchlists
           
 
 

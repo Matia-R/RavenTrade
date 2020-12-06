@@ -6,7 +6,7 @@ var authenticator = require('../public/js/authenticator.js');
 router.get('/', function(req, res, next) {
   console.log("about to auth");
   if (authenticator.auth(req, next)) {
-    res.render('watchlist', { title: 'Watchlists' });
+    res.render('watchlists', { title: 'Watchlists' });
   } else {
     res.send(401, "Not Authorized");
   }

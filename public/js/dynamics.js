@@ -2,7 +2,8 @@
 
 module.exports = {
     createAccount,
-    verifyCredentials
+    verifyCredentials,
+    getCurrUser
 }
 
 class User {
@@ -403,6 +404,7 @@ database.push(stock2);
 database.push(stock3);
 
 var users = [];
+var currUser;
 
 //creates user account, returns user
 function createAccount(username, password) {
@@ -415,15 +417,19 @@ function createAccount(username, password) {
 function verifyCredentials(username, password) {
     for (i = 0; i < users.length; i++) {
         if (username === users[i].username && password === users[i].password) {
+            currUser = users[i];
             return true;
         }
     }
     return false;
 }
 
+createAccount("test", "123");
 createAccount("JohnDoe", "password");
 createAccount("Ethan", "myPSWD");
 createAccount("Matia", "somePSWD");
+
+function getCurrUser() { return currUser; }
 
 console.log(verifyCredentials(users[0].username, users[0].password, users));
 console.log(verifyCredentials("JohnDenver", "password", users));
@@ -457,7 +463,10 @@ users[0].createAlert(true, "AAA", 12, true);
 console.log("\nAlerts: \n\n" + users[0].alerts[0].toString());
 users[0].portfolioValue = 56;
 
+currUser.balance = 0;
+
 console.log("\nPortfolio Value: \n\n" + users[0].portfolioValue);
+console.log("\nPortfolio Balance: \n\n" + currUser.balance)
 
 
 

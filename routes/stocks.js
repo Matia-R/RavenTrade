@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var model = require('../public/js/dynamics.js');
 var authenticator = require('../public/js/authenticator.js');
+
+stocks = {
+  allStocks: model.database
+}
 
 /* GET stocks page. */
 router.get('/', function(req, res, next) {

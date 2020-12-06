@@ -9,25 +9,11 @@ block content
         input(type='text' name='searchbox' placeholder='eg. XYZ')#searchbox
         input(type='submit' value='⏎')#searchbox-submit
     div(id="stock-box").stock-info-box
+      - var n = 0
       ul(id="stock-list").stock-list
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
-        li(tabindex=1) XYZ
+        each stock in userInfo.portfolio
+          li(tabindex = n++) #{stock.symbol} $#{stock.price}
+        br
         
     div(id="stock-btn").stock-info-box
       button(id="btn-view-stock").big-btn View Stock
