@@ -42,9 +42,9 @@ class User {
     setPortfolioValue() {
         var portVal = 0.0;
         for (var s in this.userStocks) {
-            portVal += Number(s.price);
+            portVal += Number(s.avgPricePaid*s.numOwned);
         }
-        return portVal;
+        this.portfolioValue = Number(portVal);
     }
 
     // watchlist methods
@@ -150,16 +150,24 @@ class User {
     }
 
     orderCompleted(order) {
-        order.stock.numSharesOrdered = order.numShares;
-        order.stock.avgPricePaid = order.priceEntered;
+        order.stock.numOwned += order.numSharesOrdered;
+        if (this.userStocks.length === 0) {
+            order.stock.avgPricePaid = (order.stock.avgPricePaid + order.priceEntered);
+        }else {
+            order.stock.avgPricePaid = (order.stock.avgPricePaid + order.priceEntered) / 2;
+        }
         this.userStocks.push(order.stock);
+        var p = Number(order.priceEntered);
+        var s = Number(order.numSharesOrdered);
         if (order.typeOrder) {
-            this.balance -= Number(this.price*this.numShares);
-            this.setPortfolioValue();
+            this.balance -= Number(Number(p)*Number(s));
+            //this.setPortfolioValue();
+            this.portfolioValue += Number(Number(p)*Number(s));
         }
         else {
-            this.balance -= Number(this.price*this.numShares);
-            this.setPortfolioValue();
+            this.balance -= Number(Number(p)*Number(s));
+            //this.setPortfolioValue();
+            this.portfolioValue -= Number(Number(p)*Number(s));
         }
         this.orders.pop(order);
     }
@@ -506,19 +514,19 @@ users[0].watchlists[0].addStockToWatchlist(database[2]);
 console.log("\n\nFav Watchlist: \n\n" + users[0].watchlists[0].wStocks[0].toString());
 console.log("\n\n" + users[0].watchlists[0].wStocks[1].toString());
 
-//users[0].makeOrder("XYZ", true, database[0].price, 10, false, database[0]);
-//console.log("\nOrder: \n\n" + users[0].orders[0].toString());
+users[0].makeOrder("XYZ", true, database[0].price, 10, false, database[0]);
+console.log("\nOrder: \n\n" + users[0].orders[0].toString());
 console.log("\nTime passes so order is now completed!\n\n");
-//users[0].orderCompleted(users[0].orders[0]);
+users[0].orderCompleted(users[0].orders[0]);
 var event3 = users[0].logEventBS(10232020, 0, 10, database[0].price, "XYZ");
-//console.log("Users Stocks: \n\n" + users[0].userStocks[0].toString());
+console.log("Users Stocks: \n\n" + users[0].userStocks[0].toString());
 
 users[0].createAlert(true, "AAA", 12, true);
 console.log("\nAlerts: \n\n" + users[0].alerts[0].toString());
 //users[0].portfolioValue = 56;
 
 console.log("\nPortfolio Value: \n\n" + users[0].portfolioValue);
-console.log("\nPortfolio Balance: \n\n" + currUser.balance)
+console.log("\nPortfolio Balance: \n\n" + users[0].balance)
 
 function getCurrDate() {
     var today = new Date();
