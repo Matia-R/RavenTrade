@@ -7,11 +7,8 @@ module.exports = {
     verifyCredentials,
     getCurrUser,
     getStocks,
-<<<<<<< HEAD
-    toString
-=======
+    toString,
     getCurrDate
->>>>>>> refs/remotes/origin/master
 }
 
 class User {
@@ -399,7 +396,6 @@ class HistoryLogBS {
 
 /*Event Listeners
 document.getElementsByClassName("clsOption").addEventListener("click", displayWatchlist);
-
 displays listof stocks in a selected watch list
 function displayWatchlist() {
     var clickedWatchlist = document.getElementsByClassName("clsOption").value;
@@ -409,16 +405,13 @@ function displayWatchlist() {
         list.innerHTML += prop;
     }
 }
-
 document.getElementsById("delete-watchlist").addEventListener("click", deleteWlist);
-
 function deleteWlist() {
     var clickedWatchlist = document.getElementsByClassName("clsOption").value;
     var wlist = user.watchlists[clickedWatchlist];
     user.watchlists.pop(wlist);
     document.getElementsById(`watchlist${clickedWatchlist}`).remove();
 }
-
 */
 
 
@@ -508,11 +501,3 @@ function getCurrDate() {
     
     return today.getFullYear()+""+(today.getMonth()+1)+""+day;
 }
-
-
-
-
-
-
-
-
