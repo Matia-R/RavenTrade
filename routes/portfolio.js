@@ -3,6 +3,8 @@ var router = express.Router();
 var model = require('../public/js/dynamics.js');
 var authenticator = require('../public/js/authenticator.js');
 
+//document.getElementById('withdraw-btn').addEventListener('click', fetch('../withdraw', { method: 'PATCH'}) );
+
 /* GET home/portfolio page. */
 router.get('/', function(req, res, next) {
   console.log("about to auth");

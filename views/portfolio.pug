@@ -10,7 +10,7 @@ block content
         h1 Current Balance:
         h2 $#{userInfo.portfolioBalance}
       div(id="funds-btn-box").port-info-box
-        button(id="withdraw-btn").big-btn Withdraw Funds
+        button(id="withdraw-btn" onclick="fetch('./withdraw', { method: 'PATCH'})").big-btn Withdraw Funds
         button(id="deposit-btn").big-btn Deposit Funds
     div(id="owned-stock")
       div(id="owned-stock-title").stock-info-box
