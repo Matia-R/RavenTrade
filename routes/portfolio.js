@@ -54,7 +54,6 @@ router.patch('/withdraw', (req, res, next) => {
   }
   res.status(201);
   res.send("Patched");
-  //res.redirect("./portfolio");
 });
 
 
