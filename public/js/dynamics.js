@@ -5,6 +5,7 @@ module.exports = {
     verifyCredentials,
     getCurrUser,
     getStocks,
+    getCurrDate
 }
 
 class User {
@@ -38,7 +39,7 @@ class User {
     setPortfolioValue() {
         var portVal = 0.0;
         for (var s in this.userStocks) {
-            portVal += s.price;
+            portVal += Number(s.price);
         }
         return portVal;
     }
@@ -468,12 +469,20 @@ var event3 = users[0].logEventBS(10232020, 0, 10, database[0].price, "XYZ");
 
 users[0].createAlert(true, "AAA", 12, true);
 console.log("\nAlerts: \n\n" + users[0].alerts[0].toString());
-users[0].portfolioValue = 56;
+//users[0].portfolioValue = 56;
 
 console.log("\nPortfolio Value: \n\n" + users[0].portfolioValue);
 console.log("\nPortfolio Balance: \n\n" + currUser.balance)
 
-
+function getCurrDate() {
+    var today = new Date();
+    if (today.getDate() < 10) {
+        var day = "0"+ today.getDate();
+    }
+    else {day = today.getDate();}
+    
+    return today.getFullYear()+""+(today.getMonth()+1)+""+day;
+}
 
 
 
