@@ -31,7 +31,7 @@ router.post('/', (req, res, next) =>{
 });
 
 router.patch('/deposit', (req, res, next) => {
-  model.depositBtn();
+  model.getCurrUser().deposit(100);
   user = {
     portfolioValue: model.getCurrUser().portfolioValue,
     portfolioBalance: model.getCurrUser().balance,
@@ -42,7 +42,7 @@ router.patch('/deposit', (req, res, next) => {
 });
 
 router.patch('/withdraw', (req, res, next) => {
-  model.withdrawBtn();
+  model.getCurrUser().withdraw(100);
   user = {
     portfolioValue: model.getCurrUser().portfolioValue,
     portfolioBalance: model.getCurrUser().balance,

@@ -5,8 +5,6 @@ module.exports = {
     verifyCredentials,
     getCurrUser,
     getStocks,
-    withdrawBtn,
-    depositBtn
 }
 
 class User {
@@ -25,7 +23,12 @@ class User {
 
     //fund methods
     withdraw(amount) {
-       this.balance -= Number(amount); 
+        if (currUser.balance >= 100) {
+            this.balance -= Number(amount);
+        }
+        else {
+            alert('Not Enough money to withdraw!');
+        }     
     }
 
     deposit(amount) {
@@ -456,44 +459,21 @@ users[0].watchlists[0].addStockToWatchlist(database[2]);
 console.log("\n\nFav Watchlist: \n\n" + users[0].watchlists[0].wStocks[0].toString());
 console.log("\n\n" + users[0].watchlists[0].wStocks[1].toString());
 
-users[0].makeOrder("XYZ", true, database[0].price, 10, false, database[0]);
-console.log("\nOrder: \n\n" + users[0].orders[0].toString());
+//users[0].makeOrder("XYZ", true, database[0].price, 10, false, database[0]);
+//console.log("\nOrder: \n\n" + users[0].orders[0].toString());
 console.log("\nTime passes so order is now completed!\n\n");
-users[0].orderCompleted(users[0].orders[0]);
+//users[0].orderCompleted(users[0].orders[0]);
 var event3 = users[0].logEventBS(10232020, 0, 10, database[0].price, "XYZ");
-console.log("Users Stocks: \n\n" + users[0].userStocks[0].toString());
+//console.log("Users Stocks: \n\n" + users[0].userStocks[0].toString());
 
 users[0].createAlert(true, "AAA", 12, true);
 console.log("\nAlerts: \n\n" + users[0].alerts[0].toString());
 users[0].portfolioValue = 56;
 
-currUser.balance = 0;
-
 console.log("\nPortfolio Value: \n\n" + users[0].portfolioValue);
 console.log("\nPortfolio Balance: \n\n" + currUser.balance)
 
-function withdrawBtn() {
-    if (currUser.balance >= 100) {
-        console.log("\nLosing Money!");
-        currUser.withdraw(100);
-    }
-    else {
-        alert("Not Enough Money to Withdraw!");
-    }
-    console.log("\nPortfolio Balance: \n\n" + currUser.balance);
-}
 
-function depositBtn() {
-    currUser.deposit(100);
-}
-
-function findStock(symbol) {
-
-}
-
-function order() {
-
-}
 
 
 
