@@ -3,15 +3,14 @@ var router = express.Router();
 var model = require('../public/js/dynamics.js');
 var authenticator = require('../public/js/authenticator.js');
 
-user = {
-  portfolioValue: model.getCurrUser().portfolioValue,
-  portfolioBalance: model.getCurrUser().balance,
-  portfolio: model.getCurrUser().userStocks
-}
-
 /* GET home/portfolio page. */
 router.get('/', function(req, res, next) {
   console.log("about to auth");
+  user = {
+    portfolioValue: model.getCurrUser().portfolioValue,
+    portfolioBalance: model.getCurrUser().balance,
+    portfolio: model.getCurrUser().userStocks
+  }
   if (authenticator.auth(req, next)) {
     res.render('portfolio', { title: 'Portfolio', userInfo: user });
   } else {
@@ -31,12 +30,27 @@ router.post('/', (req, res, next) =>{
   //redirects to orders page
 });
 
-router.patch('/', (req, res, next) =>{
-  //deposits funds
+router.patch('/deposit', (req, res, next) => {
+  model.depositBtn();
+  user = {
+    portfolioValue: model.getCurrUser().portfolioValue,
+    portfolioBalance: model.getCurrUser().balance,
+    portfolio: model.getCurrUser().userStocks
+  }
+  res.status(201);
+  res.send("Patched");
 });
 
-router.patch('/', (req, res, next) =>{
-  //withdraws funds
+router.patch('/withdraw', (req, res, next) => {
+  model.withdrawBtn();
+  user = {
+    portfolioValue: model.getCurrUser().portfolioValue,
+    portfolioBalance: model.getCurrUser().balance,
+    portfolio: model.getCurrUser().userStocks
+  }
+  res.status(201);
+  res.send("Patched");
+  //res.redirect("./portfolio");
 });
 
 

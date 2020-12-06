@@ -4,7 +4,9 @@ module.exports = {
     createAccount,
     verifyCredentials,
     getCurrUser,
-    getStocks
+    getStocks,
+    withdrawBtn,
+    depositBtn
 }
 
 class User {
@@ -470,7 +472,28 @@ currUser.balance = 0;
 console.log("\nPortfolio Value: \n\n" + users[0].portfolioValue);
 console.log("\nPortfolio Balance: \n\n" + currUser.balance)
 
+function withdrawBtn() {
+    if (currUser.balance >= 100) {
+        console.log("\nLosing Money!");
+        currUser.withdraw(100);
+    }
+    else {
+        alert("Not Enough Money to Withdraw!");
+    }
+    console.log("\nPortfolio Balance: \n\n" + currUser.balance);
+}
 
+function depositBtn() {
+    currUser.deposit(100);
+}
+
+function findStock(symbol) {
+
+}
+
+function order() {
+
+}
 
 
 
