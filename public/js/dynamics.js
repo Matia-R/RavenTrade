@@ -7,11 +7,8 @@ module.exports = {
     verifyCredentials,
     getCurrUser,
     getStocks,
-<<<<<<< HEAD
-    toString
-=======
+    toString,
     getCurrDate
->>>>>>> refs/remotes/origin/master
 }
 
 class User {
