@@ -1,10 +1,13 @@
 //Adding js code to handle events and manage data on website
 
+const { PreconditionFailed } = require("http-errors");
+
 module.exports = {
     createAccount,
     verifyCredentials,
     getCurrUser,
     getStocks,
+    toString
 }
 
 class User {
@@ -168,6 +171,22 @@ class User {
         return str;
     }
 
+    // logsToString() {
+    //     var logs = [];
+    //     for (var log in this.accounHistory) {
+    //         logs.push(log.toString());
+    //     }
+    //     return logs;
+    // }
+
+    logsToString() {
+        var logs = [];
+        this.accounHistory.forEach((value) => {
+            logs.push(value.toString());
+        });
+        return logs;
+    }
+
 }
 
 class Stock {
@@ -323,7 +342,7 @@ class HistoryLogWD {
     }
 
     displayDate() {
-        return this.date.subString(0,2) + "-" + this.date.subString(2,4) + "-" + this.date.subString(4,8);
+        return this.date.substring(0,2) + "-" + this.date.substring(2,4) + "-" + this.date.substring(4,8);
     }
 
     setDescription() {
@@ -336,7 +355,8 @@ class HistoryLogWD {
     }
 
     toString() {
-        return this.displayDate() + "\n" +  this.description;  
+        return "\n" +  this.description;
+        //this.displayDate() +   
     }
 }
 
@@ -351,20 +371,22 @@ class HistoryLogBS {
     }
 
     displayDate() {
-        return this.date.subString(0,2) + "-" + this.date.subString(2,4) + "-" + this.date.subString(4,8);
+        return this.date.substring(0,2) + "-" + this.date.substring(2,4) + "-" + this.date.substring(4,8);
     }
 
     setDescription() {
         if (Number(this.eventType) === 0) {
-            return "Bought " + this.numShares + " of " + this.symbol + " for " + Number(this.numShares*this.price) + " (" + this.price + " each)";
+            this.description = "Bought " + this.numShares + " of " + this.symbol + " for " + Number(this.numShares*this.price) + " (" + this.price + " each)";
         }
         else {
-            return "Sold " + this.numShares + " of " + this.symbol + " for " + Number(this.numShares*this.price) + " (" + this.price + " each)";
+            this.description = "Sold " + this.numShares + " of " + this.symbol + " for " + Number(this.numShares*this.price) + " (" + this.price + " each)";
         }
     }
 
     toString() {
-        return this.displayDate() + "\n" +  this.description;  
+        console.log("\n this.description" + this.description);
+        return "\n" + this.description;
+        //this.displayDate() +  
     }
 
 }

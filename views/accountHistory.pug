@@ -12,7 +12,11 @@ block content
       button#filter-by-action.big-btn Filter by Action
       button#clear-filters.big-btn Clear Filters
       #acc-list-section
+        - var n = 0
         ul#acc-history-list.alerts-list
+          each log in accHis.logs
+            li(tabindex = n++) #{log}
+          br
           //- li: include accHisInfo
           //- li: include accHisInfo
           //- li: include accHisInfo

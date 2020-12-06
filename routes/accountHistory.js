@@ -4,14 +4,14 @@ var authenticator = require('../public/js/authenticator.js');
 var model = require('../public/js/dynamics.js');
 
 history = {
-  accHis: model.getCurrUser().accountHistory
+  logs: model.getCurrUser().logsToString()
 }
 
 /* GET account history page. */
 router.get('/', function(req, res, next) {
   console.log("about to auth");
   if (authenticator.auth(req, next)) {
-    res.render('accountHistory', { title: 'My Account' });
+    res.render('accountHistory', { title: 'My Account', accHis: history });
   } else {
     res.send(401, "Not Authorized");
   }
