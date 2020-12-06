@@ -1,12 +1,17 @@
 var express = require('express');
 var router = express.Router();
+var model = require('../public/js/dynamics.js');
 var authenticator = require('../public/js/authenticator.js');
+
+watchlist = {
+  
+}
 
 /* GET watchlist page. */
 router.get('/', function(req, res, next) {
   console.log("about to auth");
   if (authenticator.auth(req, next)) {
-    res.render('watchlists', { title: 'Watchlists' });
+    res.render('watchlist', { title: 'Watchlists' });
   } else {
     res.send(401, "Not Authorized");
   }

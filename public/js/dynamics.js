@@ -3,7 +3,8 @@
 module.exports = {
     createAccount,
     verifyCredentials,
-    getCurrUser
+    getCurrUser,
+    getStocks
 }
 
 class User {
@@ -430,6 +431,7 @@ createAccount("Ethan", "myPSWD");
 createAccount("Matia", "somePSWD");
 
 function getCurrUser() { return currUser; }
+function getStocks() { return database; }
 
 console.log(verifyCredentials(users[0].username, users[0].password, users));
 console.log(verifyCredentials("JohnDenver", "password", users));

@@ -26,7 +26,11 @@ block content
       button#delete-watchlist.big-btn Delete Watchlist
       button#unwatch-stock.big-btn Unwatch Stock
       p Create New Watchlist:
-      input#new-watchlist-name.clsInput
+      //input#new-watchlist-name.clsInput
+      form
+        //label(for="searchbox")#searchbox-label Search: 
+        input(type='text' name='searchbox' placeholder='eg. My Watchlist' id = 'watchlistBox').inputBox
+        input(type='submit' value='⏎' id = 'watchlist-submit').inputBox-submit
 
              
     

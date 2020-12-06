@@ -11,7 +11,7 @@ block content
     div(id="stock-box").stock-info-box
       - var n = 0
       ul(id="stock-list").stock-list
-        each stock in userInfo.portfolio
+        each stock in stockInfo.allStocks
           li(tabindex = n++) #{stock.symbol} $#{stock.price}
         br
         

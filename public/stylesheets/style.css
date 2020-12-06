@@ -192,7 +192,7 @@ header, credential-header {
     text-align: left;
     width: 40%;
     display: inline-block;
-    padding: 4em;
+    padding: 3em;
     color: #E8E8E8;
     background-color: rgba(53, 51, 51, 0.877);
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -294,7 +294,7 @@ header, credential-header {
     overflow: scroll;
     overflow-x: hidden;
     list-style: none;
-    height: 29em;
+    height: 19em;
 }
 
 .alerts-list li {
@@ -320,12 +320,20 @@ header, credential-header {
     font-size: 14px;
 }
 
-#Active-Deactive-State {
+#active-state, #inactive-state {
     font-size: 14px;
     background-color: springgreen;
     font-weight: bold;
     color: rgba(14, 13, 13, 0.877);
     max-width: fit-content;
+}
+
+#active-State {
+    background-color: springgreen;
+}
+
+#inactive-state {
+    background-color: rgb(255, 0, 0); 
 }
 
 #date-event {

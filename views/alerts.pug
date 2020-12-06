@@ -8,15 +8,26 @@ block content
         You can view and manage your stock alerts from here.
     #content-text
       h1 Current Alerts
+        - var n = 0
         ul#alerts-list.alerts-list
-          li: include singleAlerts
-          li: include singleAlerts
-          li: include singleAlerts
-          li: include singleAlerts
-          li: include singleAlerts
-          li: include singleAlerts
-          li: include singleAlerts
-
+          each alert in alertInfo.allAlerts
+            li(tabindex = n++)#alert.clsAlert
+              p#alert-stock-symbol #{alert.symbol}
+              if alert.increasing
+                p#alert-when Alert: <$#{alert.condition}
+              else
+                p#alert-when Alert: >$#{alert.condition}
+              if alert.active
+                p#active-state Active
+              else
+                p#inactive-state Inactive
+          //- li: include singleAlerts
+          //- li: include singleAlerts
+          //- li: include singleAlerts
+          //- li: include singleAlerts
+          //- li: include singleAlerts
+          //- li: include singleAlerts
+          //- li: include singleAlerts
       button#add-alert.big-btn Create New Alert
       button#remove-alert.big-btn Remove Alert
       button#AorD-alert.big-btn Activate/Deactivate Alert

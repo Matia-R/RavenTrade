@@ -3,15 +3,15 @@ var router = express.Router();
 var model = require('../public/js/dynamics.js');
 var authenticator = require('../public/js/authenticator.js');
 
-stocks = {
-  allStocks: model.database
+stock = {
+  allStocks: model.getStocks()
 }
 
 /* GET stocks page. */
 router.get('/', function(req, res, next) {
   console.log("about to auth");
   if (authenticator.auth(req, next)) {
-    res.render('stocks', { title: 'Stocks' });
+    res.render('stocks', { title: 'Stocks', stockInfo: stock });
   } else {
     res.send(401, "Not Authorized");
   }

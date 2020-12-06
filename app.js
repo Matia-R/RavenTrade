@@ -47,7 +47,7 @@ app.use('/portfolio', portfolioRouter);
 app.use('/stocks', stocksRouter);
 app.use('/orders', ordersRouter);
 app.use('/stock-info', stockInfoRouter);
-app.use('/watchlists', watchlistRouter);
+app.use('/watchlist', watchlistRouter);
 app.use('/alerts', alertsRouter);
 app.use('/accountHistory', accountHistoryRouter);
 app.use('/users', usersRouter);
