@@ -8,7 +8,8 @@ module.exports = {
     getCurrUser,
     getStocks,
     toString,
-    getCurrDate
+    getCurrDate,
+    isValidSymbol
 }
 
 class User {
@@ -532,4 +533,12 @@ function getCurrDate() {
     else {day = today.getDate();}
     
     return today.getFullYear()+""+(today.getMonth()+1)+""+day;
+}
+
+function isValidSymbol(symbol) {
+    console.log("got to isValidSymbol(0)");
+    database.forEach((value) => {
+      if (symbol === value.symbol) return true;  
+    });
+    return false; 
 }

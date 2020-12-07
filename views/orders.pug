@@ -4,20 +4,26 @@ block content
   #content
     #content-title
         h1 Stock Orders
-        p.
-            You are about to place an order for ... stock.                     
+        p.                     
             To place your order, please fill out the order form below.
     #content-text
         h1 Place Order
-        #Order 
-            button#buy.big-btn Buy Shares
-            button#sell.big-btn Sell Shares
+        form(method="post" action="/orders/place-order")#Order 
+            p Enter the symbol of the stock you would like to buy/sell:
+            input(type='text' name='stockSymbol' placeholder='eg. XYZ' requried)#stock-symbol-input.clsInput
+            p
+            input(type="radio" id="buy" name="buy-sell" value="buy" required)
+            label(for="buy") Buy Shares
+            input(type="radio" id="sell" name="buy-sell" value="sell" required)
+            label(for="sell") Sell Shares
             p Enter the number of shares you wish to buy/sell:
-            input#num-shares.clsInput
-            p Enter the amount you wish to buy/sell each share for:
-            input#user-desired-price.clsInput
+            input(type='number' min=1 name='numShares' placeholder='eg. 5' requried)#num-shares-input.clsInput
+            p Enter the dollar amount you wish to buy/sell each share for:
+            input(type='number' min=1 name='threshold' placeholder='eg. 10' required)#user-desired-price.clsInput
             p When do you want this order to expire:
-            button#end-day.big-btn End of Day
-            button#cancellation.big-btn Upon Cancellation 
-            p Press this button to complete your order request:
-            button#complete-order.big-btn Complete Order 
+            input(type="radio" id="end-of-day" name="when-to" value="end-of-day" required)
+            label(for="end-of-day") End of Day
+            input(type="radio" id="on-cancel" name="when-to" value="on-cancel" required)
+            label(for="on-cancel") Upon Cancellation
+            p
+            input(type='submit' value='Complete Order')#complete-order.big-btn 
