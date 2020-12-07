@@ -146,8 +146,21 @@ class User {
 
     // orders methods
     makeOrder(symbol, typeorder, price, numShares, expiry, stock) {
-        var o = new Order(symbol, typeorder, price, numShares, expiry, stock);
-        this.orders.push(o);
+        var shouldOrder = 0;
+        if (typeorder) {
+            var cost = Number(Number(price)*Number(numShares)); 
+            if (Number(cost) > Number(this.balance)) {
+                //alert("Insufficient Funds!");
+                shouldOrder = 1;
+                console.log("Insufficient Funds!");      
+            }
+        }
+
+        if (shouldOrder === 0) {
+            var o = new Order(symbol, typeorder, price, numShares, expiry, stock);
+            this.orders.push(o);
+        }
+        return shouldOrder;
     }
 
     orderCompleted(order) {
@@ -243,10 +256,10 @@ class OwnedStock {
 class Order {
     constructor(symbol, typeorder, price, numShares, expiry, stock) {
         this.symbol = symbol;
-        this.typeOrder = typeorder;
+        this.typeOrder = typeorder; //true = buy & false = sell
         this.priceEntered = price;
         this.numSharesOrdered = numShares;
-        this.expireEndDay = expiry;
+        this.expireEndDay = expiry; //true = endday & false = cancel
         this.stock = stock;
         // notification
     }
@@ -482,6 +495,16 @@ function verifyCredentials(username, password) {
     return false;
 }
 
+function getCurrDate() {
+    var today = new Date();
+    if (today.getDate() < 10) {
+        var day = "0"+ today.getDate();
+    }
+    else {day = today.getDate();}
+    
+    return today.getFullYear()+""+(today.getMonth()+1)+""+day;
+}
+
 createAccount("test", "123");
 createAccount("JohnDoe", "password");
 createAccount("Ethan", "myPSWD");
@@ -505,18 +528,32 @@ console.log(users[0].balance + "\n");
 users[0].logEventDW(10232020, 2, 2000);
 
 
-users[0].createWatchlist("Fav Watchlist");
-users[0].watchlists[0].addStockToWatchlist(database[0]);
-users[0].watchlists[0].addStockToWatchlist(database[2]);
-console.log("\n\nFav Watchlist: \n\n" + users[0].watchlists[0].wStocks[0].toString());
-console.log("\n\n" + users[0].watchlists[0].wStocks[1].toString());
+//users[0].createWatchlist("Fav Watchlist");
+//users[0].watchlists[0].addStockToWatchlist(database[0]);
+//users[0].watchlists[0].addStockToWatchlist(database[2]);
+//console.log("\n\nFav Watchlist: \n\n" + users[0].watchlists[0].wStocks[0].toString());
+//console.log("\n\n" + users[0].watchlists[0].wStocks[1].toString());
 
-users[0].makeOrder("XYZ", true, database[0].price, 10, false, database[0]);
+//user places order
+users[0].makeOrder(database[0].symbol, true, database[0].price, 10, false, database[0]);
 console.log("\nOrder: \n\n" + users[0].orders[0].toString());
 console.log("\nTime passes so order is now completed!\n\n");
 users[0].orderCompleted(users[0].orders[0]);
 var event3 = users[0].logEventBS(10232020, 0, 10, database[0].price, "XYZ");
 console.log("Users Stocks: \n\n" + users[0].userStocks[0].toString());
+
+var check3 = users[0].makeOrder(database[11].symbol, true, database[11].price, 60, false, database[11]);
+if (check3 === 0) {
+    users[0].orderCompleted(users[0].orders[0]);
+}
+var check2 = users[0].makeOrder(database[6].symbol, true, database[6].price, 50, false, database[6]);
+if (check2 === 0) {
+    users[0].orderCompleted(users[0].orders[0]);
+}
+var check = users[0].makeOrder(database[5].symbol, true, database[5].price, 20, false, database[5]);
+if (check === 0) {
+    users[0].orderCompleted(users[0].orders[0]); 
+}
 
 users[0].createAlert(true, "AAA", 12, true);
 console.log("\nAlerts: \n\n" + users[0].alerts[0].toString());
@@ -525,15 +562,6 @@ console.log("\nAlerts: \n\n" + users[0].alerts[0].toString());
 console.log("\nPortfolio Value: \n\n" + users[0].portfolioValue);
 console.log("\nPortfolio Balance: \n\n" + users[0].balance)
 
-function getCurrDate() {
-    var today = new Date();
-    if (today.getDate() < 10) {
-        var day = "0"+ today.getDate();
-    }
-    else {day = today.getDate();}
-    
-    return today.getFullYear()+""+(today.getMonth()+1)+""+day;
-}
 
 function isValidSymbol(symbol) {
     console.log("got to isValidSymbol(0)");
