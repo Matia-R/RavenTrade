@@ -22,7 +22,23 @@ block content
               else
                 p#inactive-state Inactive
             br
-      button#add-alert.big-btn Create New Alert
-      button#remove-alert.big-btn Remove Alert
-      button#AorD-alert.big-btn Activate/Deactivate Alert
-      button#edit-alert.big-btn Edit Alert
+      button(onclick="fetch('/alerts/delete-all', { method: 'DELETE'}); document.location.reload();")#remove-alert.big-btn Remove Alerts
+      //button#AorD-alert.big-btn Activate/Deactivate Alert
+      //button#edit-alert.big-btn Edit Alert
+      form(method="post" action="/alerts/create")
+          p Enter the stock symbol you would like to create an alert for:
+          input(type='text' name='alertSymbol' placeholder='eg. XYZ' requried)#stock-symbol-input.clsInput
+          p
+          input(type="radio" id="active" name="actinact" value="active" required)
+          label(for="active") Active
+          input(type="radio" id="inactive" name="actinact" value="inactive" required)
+          label(for="inactive") Inactive
+          p Enter the value that you want to be alerted at:
+          input(type='number' min=1 name='alertValue' placeholder='eg. 5' requried)#num-shares-input.clsInput          
+          p Click whether to be alerted when it increases/decreases past that value:
+          input(type="radio" id="increase" name="incdec" value="increase" required)
+          label(for="increase") Increase
+          input(type="radio" id="decrease" name="incdec" value="decrease" required)
+          label(for="decrease") Decrease
+          p
+          input(type='submit' value='Create New Alert')#add-alert.big-btn

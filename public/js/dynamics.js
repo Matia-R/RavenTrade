@@ -74,8 +74,8 @@ class User {
         this.alerts.push(a);
     }
 
-    deleteAlert(alert) {
-        this.alerts.pop(alert);
+    deleteAlerts() {
+        this.alerts = [];
     }
 
     alertsToString() {
@@ -484,32 +484,6 @@ class HistoryLogBS {
 
 }
 
-
-
-/*Event Listeners
-document.getElementsByClassName("clsOption").addEventListener("click", displayWatchlist);
-displays listof stocks in a selected watch list
-function displayWatchlist() {
-    var clickedWatchlist = document.getElementsByClassName("clsOption").value;
-    var wlist = user.watchlists[clickedWatchlist];
-    var list = document.getElementsById("wlist");
-    for (var prop in wlist) {
-        list.innerHTML += prop;
-    }
-}
-document.getElementsById("delete-watchlist").addEventListener("click", deleteWlist);
-function deleteWlist() {
-    var clickedWatchlist = document.getElementsByClassName("clsOption").value;
-    var wlist = user.watchlists[clickedWatchlist];
-    user.watchlists.pop(wlist);
-    document.getElementsById(`watchlist${clickedWatchlist}`).remove();
-}
-*/
-
-
-
-
-
 // Sample testing code and objects - will be replaced by actual database 
 var database = [];
 
@@ -575,19 +549,12 @@ function getCurrDate() {
     return today.getFullYear()+""+(today.getMonth()+1)+""+day;
 }
 
-createAccount("test", "123");
-createAccount("JohnDoe", "password");
-createAccount("Ethan", "myPSWD");
-createAccount("Matia", "somePSWD");
-
 function getCurrUser() { return currUser; }
 function getStocks() { return getFilteredStocks(0); }
 function getFilteredStocks(symbol) {
     if (Number(symbol) === Number(0)) {
         return database;
     }
-    
-    console.log("Symbol:"+symbol);
 
     var filteredDatabase = [];
     for (var i = 0; i < database.length; i++) {
@@ -598,56 +565,6 @@ function getFilteredStocks(symbol) {
     }
     return filteredDatabase;
 }
-
-console.log(verifyCredentials(users[0].username, users[0].password, users));
-console.log(verifyCredentials("JohnDenver", "password", users));
-
-users[0].deposit(5000);
-console.log("Balance =");
-console.log(users[0].balance + "\n");
-users[0].logEventDW(10232020, 3, 5000);
-
-
-users[0].withdraw(2000);
-console.log("Balance =");
-console.log(users[0].balance + "\n");
-users[0].logEventDW(10232020, 2, 2000);
-
-
-//users[0].createWatchlist("Fav Watchlist");
-//users[0].watchlists[0].addStockToWatchlist(database[0]);
-//users[0].watchlists[0].addStockToWatchlist(database[2]);
-//console.log("\n\nFav Watchlist: \n\n" + users[0].watchlists[0].wStocks[0].toString());
-//console.log("\n\n" + users[0].watchlists[0].wStocks[1].toString());
-
-//user places order
-users[0].makeOrder(database[0].symbol, true, database[0].price, 10, false, database[0]);
-console.log("\nOrder: \n\n" + users[0].orders[0].toString());
-console.log("\nTime passes so order is now completed!\n\n");
-users[0].orderCompleted(users[0].orders[0]);
-var event3 = users[0].logEventBS(10232020, 0, 10, database[0].price, "XYZ");
-console.log("Users Stocks: \n\n" + users[0].userStocks[0].toString());
-
-var check3 = users[0].makeOrder(database[11].symbol, true, database[11].price, 60, false, database[11]);
-if (check3 === 0) {
-    users[0].orderCompleted(users[0].orders[0]);
-}
-var check2 = users[0].makeOrder(database[6].symbol, true, database[6].price, 50, false, database[6]);
-if (check2 === 0) {
-    users[0].orderCompleted(users[0].orders[0]);
-}
-var check = users[0].makeOrder(database[5].symbol, true, database[5].price, 20, false, database[5]);
-if (check === 0) {
-    users[0].orderCompleted(users[0].orders[0]); 
-}
-
-users[0].createAlert(true, "AAA", 12, true);
-console.log("\nAlerts: \n\n" + users[0].alerts[0].toString());
-//users[0].portfolioValue = 56;
-
-console.log("\nPortfolio Value: \n\n" + users[0].portfolioValue);
-console.log("\nPortfolio Balance: \n\n" + users[0].balance)
-
 
 function isValidSymbol(symbol) {
     console.log("got to isValidSymbol()\n");

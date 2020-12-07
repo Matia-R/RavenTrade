@@ -33,16 +33,4 @@ router.post('/filter', (req, res, next) =>{
   }
 });
 
-router.post('/', (req, res, next) =>{
-  //creates alert for clicked stock 
-});
-
-router.post('/', (req, res, next) =>{
-  //adds clicked stock to watchlist 
-});
-
-router.post('/', (req, res, next) =>{
-  //makes new order of stock 
-});
-
 module.exports = router;

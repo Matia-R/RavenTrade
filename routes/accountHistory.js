@@ -36,8 +36,4 @@ router.patch('/clearFilters', (req, res, next) =>{
   res.send("Patched");
 });
 
-router.get('/', (req, res, next) =>{
-  //gets filtered list of account history by date
-});
-
 module.exports = router;

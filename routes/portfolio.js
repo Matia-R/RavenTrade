@@ -20,18 +20,6 @@ router.get('/', function(req, res, next) {
   }
 });
 
-router.post('/', (req, res, next) =>{
-  //redirects to watchlist page
-});
-
-router.post('/', (req, res, next) =>{
-  //redirects to stocks page
-});
-
-router.post('/', (req, res, next) =>{
-  //redirects to orders page
-});
-
 router.patch('/deposit', (req, res, next) => {
   model.getCurrUser().deposit(100);
   model.getCurrUser().logEventDW(model.getCurrDate(), 3, 100);
