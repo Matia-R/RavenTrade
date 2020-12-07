@@ -9,7 +9,8 @@ module.exports = {
     getStocks,
     toString,
     getCurrDate,
-    isValidSymbol
+    isValidSymbol,
+    findStock
 }
 
 class User {
@@ -155,6 +156,18 @@ class User {
                 console.log("Insufficient Funds!");      
             }
         }
+        else {
+            for (var i = 0; i < this.userStocks.length; i++) {
+                if (this.userStocks[i] === stock) {
+                    if (this.userStocks[i].numOwned < numShares) {
+                        shouldOrder = 1;
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+        }
 
         if (shouldOrder === 0) {
             var o = new Order(symbol, typeorder, price, numShares, expiry, stock);
@@ -164,24 +177,47 @@ class User {
     }
 
     orderCompleted(order) {
-        order.stock.numOwned += order.numSharesOrdered;
-        if (this.userStocks.length === 0) {
-            order.stock.avgPricePaid = (order.stock.avgPricePaid + order.priceEntered);
-        }else {
-            order.stock.avgPricePaid = (order.stock.avgPricePaid + order.priceEntered) / 2;
-        }
-        this.userStocks.push(order.stock);
         var p = Number(order.priceEntered);
         var s = Number(order.numSharesOrdered);
         if (order.typeOrder) {
             this.balance -= Number(Number(p)*Number(s));
             //this.setPortfolioValue();
             this.portfolioValue += Number(Number(p)*Number(s));
+
+            var alreadyOwn = false;
+            var index = 0;
+            for (var i = 0; i < this.userStocks.length; i++) {
+                if (this.userStocks[i] === order.stock) {
+                    alreadyOwn = true;
+                    index = i;
+                    break;
+                }
+            }
+            if (alreadyOwn) {
+                this.userStocks[index].numOwned += Number(order.numSharesOrdered);
+            }
+            else {
+                index = this.userStocks.length;
+                this.userStocks.push(order.stock);
+                this.userStocks[index].numOwned += Number(order.numSharesOrdered);
+            }
         }
         else {
-            this.balance -= Number(Number(p)*Number(s));
+            this.balance += Number(Number(p)*Number(s));
             //this.setPortfolioValue();
             this.portfolioValue -= Number(Number(p)*Number(s));
+
+            var index = 0;
+            for (var i = 0; i < this.userStocks.length; i++) {
+                if (this.userStocks[i] === order.stock) {
+                    index = i;
+                    break;
+                }
+            }
+            this.userStocks[index].numOwned -= Number(order.numSharesOrdered);
+            if (this.userStocks[index].numOwned === 0) {
+                this.userStocks.pop(this.userStocks[index]);
+            }
         }
         this.orders.pop(order);
     }
@@ -564,7 +600,7 @@ console.log("\nPortfolio Balance: \n\n" + users[0].balance)
 
 
 function isValidSymbol(symbol) {
-    console.log("got to isValidSymbol()");
+    console.log("got to isValidSymbol()\n");
     var isValid = false;
     database.forEach((value) => {
       console.log(symbol);
@@ -573,3 +609,14 @@ function isValidSymbol(symbol) {
     });
     return isValid; 
 }
+
+function findStock(symbol) {
+    console.log("got to findStock()\n");
+    var stock = null;
+    database.forEach((value) => {
+      if (String(symbol) === String(value.symbol)) stock = value;  
+    });
+    console.log("Still working!\n");
+    return stock; 
+}
+

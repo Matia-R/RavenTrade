@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var authenticator = require('../public/js/authenticator.js');
-var model = require('../public/js/dynamics.js');
+var model = require('../public/js/dynamics.js'); 
 
 /* GET account history page. */
 router.get('/', function(req, res, next) {

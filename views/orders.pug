@@ -12,13 +12,13 @@ block content
             p Enter the symbol of the stock you would like to buy/sell:
             input(type='text' name='stockSymbol' placeholder='eg. XYZ' requried)#stock-symbol-input.clsInput
             p
-            input(type="radio" id="buy" name="buy-sell" value="buy" required)
+            input(type="radio" id="buy" name="buySell" value="buy" required)
             label(for="buy") Buy Shares
-            input(type="radio" id="sell" name="buy-sell" value="sell" required)
+            input(type="radio" id="sell" name="buySell" value="sell" required)
             label(for="sell") Sell Shares
             p Enter the number of shares you wish to buy/sell:
             input(type='number' min=1 name='numShares' placeholder='eg. 5' requried)#num-shares-input.clsInput
-            p Enter the dollar amount you wish to buy/sell each share for:
+            p Enter the maximum amount you wish to buy/sell each share for:
             input(type='number' min=1 name='threshold' placeholder='eg. 10' required)#user-desired-price.clsInput
             p When do you want this order to expire:
             input(type="radio" id="end-of-day" name="when-to" value="end-of-day" required)
