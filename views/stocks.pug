@@ -4,7 +4,7 @@ block content
   div(id="stocks")
     h1.small-title Browse Stocks
     div(id="search-box").stock-info-box
-      form
+      form(method="post" action="/stocks/filter")
         label(for="searchbox")#searchbox-label Search: 
         input(type='text' name='searchbox' placeholder='eg. XYZ')#searchbox
         input(type='submit' value='⏎')#searchbox-submit

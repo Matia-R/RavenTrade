@@ -10,7 +10,8 @@ module.exports = {
     toString,
     getCurrDate,
     isValidSymbol,
-    findStock
+    findStock,
+    getFilteredStocks
 }
 
 class User {
@@ -22,8 +23,8 @@ class User {
         this.userStocks = [];
         this.orders = [];
         this.watchlists = [];
-        this.accounHistory = [];
-        this.filteredAccountHistory = [];
+        this.accountHistory = [];
+        this.filteredAccountHistory = this.accountHistory;
         this.alerts = [];
     }
 
@@ -89,57 +90,91 @@ class User {
     logEventDW(date, event, amount) {
         var log = new HistoryLogWD(date, event, amount);
         log.setDescription();
-        this.accounHistory.push(log);
-        this.filteredAccountHistory.push(log);
-        
+        this.accountHistory.push(log);
+        this.filteredAccountHistory = this.accountHistory;   
     }
 
     logEventBS(date, event, numShares, price, symbol) {
         var log = new HistoryLogBS(date, event, numShares, price, symbol);
         log.setDescription();
-        this.accounHistory.push(log);
-        this.filteredAccountHistory.push(log);
+        this.accountHistory.push(log);
+        this.filteredAccountHistory = this.accountHistory;
     }
 
-    filterByEvent(event) {
+    filterByEvent() {
         var filtered = [];
-        for (var log in this.accounHistory) {
+        var event = 0;
+        var index = 0;
+        for (var log in this.accountHistory) {
             //set all items of event to display
             // and others not too
-            if (log.event === event) {
-                filtered.push(log);
+            if (Number(this.accountHistory[index].eventType) === Number(event)) {
+                filtered.push(this.accountHistory[index]);
             } 
+            index +=1;
         }
-        this.filteredAccounHistory = filtered; 
+        event = 1;
+        index = 0;
+        for (var log in this.accountHistory) {
+            //set all items of event to display
+            // and others not too
+            if (Number(this.accountHistory[index].eventType) === Number(event)) {
+                filtered.push(this.accountHistory[index]);
+            } 
+            index +=1;
+        }
+        event = 2;
+        index = 0;
+        for (var log in this.accountHistory) {
+            //set all items of event to display
+            // and others not too
+            if (Number(this.accountHistory[index].eventType) === Number(event)) {
+                filtered.push(this.accountHistory[index]);
+            } 
+            index +=1;
+        }
+        event = 3;
+        index = 0;
+        for (var log in this.accountHistory) {
+            //set all items of event to display
+            // and others not too
+            if (Number(this.accountHistory[index].eventType) === Number(event)) {
+                filtered.push(this.accountHistory[index]);
+            } 
+            index +=1;
+        }
+        this.filteredAccountHistory = [];
+        this.filteredAccountHistory = filtered; 
     }
 
     filterByDateRange(start, end) {
         var filtered = [];
-        for (var log in this.accounHistory) {
+        for (var log in this.accountHistory) {
             //set all items that are in date range to display
             // and others not too
             if (log.date >= start && log.date <= end) {
                 filtered.push(log);
             } 
         }
-        this.filteredAccounHistory = filtered;  
+        this.filteredAccountHistory = filtered;  
     }
 
     clearFilters() {
-        this.filteredAccounHistory = this.accounHistory;
+        this.filteredAccountHistory = []; 
+        this.filteredAccountHistory = this.accountHistory;
     }
 
-    accounHistoryToString() {
+    accountHistoryToString() {
         var str = "Account History: \n"
-        for (var l in this.accounHistory) {
+        for (var l in this.accountHistory) {
             str += "\n" + l.toString();
         }
         return str + "\n\n";
     }
 
-    filteredAccounHistoryToString() {
+    filteredAccountHistoryToString() {
         var str = "Filtered Account History: \n"
-        for (var l in this.filteredAccounHistory) {
+        for (var l in this.filteredAccountHistory) {
             str += "\n" + l.toString();
         }
         return str + "\n\n";
@@ -232,7 +267,7 @@ class User {
 
     // logsToString() {
     //     var logs = [];
-    //     for (var log in this.accounHistory) {
+    //     for (var log in this.accountHistory) {
     //         logs.push(log.toString());
     //     }
     //     return logs;
@@ -240,7 +275,7 @@ class User {
 
     logsToString() {
         var logs = [];
-        this.accounHistory.forEach((value) => {
+        this.filteredAccountHistory.forEach((value) => {
             logs.push(value.toString());
         });
         return logs;
@@ -406,15 +441,15 @@ class HistoryLogWD {
 
     setDescription() {
         if (Number(this.eventType) === 2) {
-            this.description = "Withdrew " + this.amount + " from account.";
+            this.description = "Withdrew $" + Number(this.amount).toFixed(2) + " from account.";
         }
         else {
-            this.description = "Deposited " + this.amount + " into account.";
+            this.description = "Deposited $" + Number(this.amount).toFixed(2) + " into account.";
         }
     }
 
     toString() {
-        return "\n" +  this.description;
+        return "\n" +  this.description + "  Date: "+this.date;
         //this.displayDate() +   
     }
 }
@@ -435,16 +470,15 @@ class HistoryLogBS {
 
     setDescription() {
         if (Number(this.eventType) === 0) {
-            this.description = "Bought " + this.numShares + " of " + this.symbol + " for " + Number(this.numShares*this.price) + " (" + this.price + " each)";
+            this.description = "Bought " + this.numShares + " of " + this.symbol + " for $" + Number(this.numShares*this.price).toFixed(2) + " ($" + this.price + " each)";
         }
         else {
-            this.description = "Sold " + this.numShares + " of " + this.symbol + " for " + Number(this.numShares*this.price) + " (" + this.price + " each)";
+            this.description = "Sold " + this.numShares + " of " + this.symbol + " for $" + Number(this.numShares*this.price).toFixed(2) + " ($" + this.price + " each)";
         }
     }
 
     toString() {
-        console.log("\n this.description" + this.description);
-        return "\n" + this.description;
+        return "\n" + this.description + "  Date:  "+this.date;
         //this.displayDate() +  
     }
 
@@ -547,7 +581,23 @@ createAccount("Ethan", "myPSWD");
 createAccount("Matia", "somePSWD");
 
 function getCurrUser() { return currUser; }
-function getStocks() { return database; }
+function getStocks() { return getFilteredStocks(0); }
+function getFilteredStocks(symbol) {
+    if (Number(symbol) === Number(0)) {
+        return database;
+    }
+    
+    console.log("Symbol:"+symbol);
+
+    var filteredDatabase = [];
+    for (var i = 0; i < database.length; i++) {
+        if (String(database[i].symbol).startsWith(String(symbol))) {
+            filteredDatabase.push(database[i]);
+        }
+
+    }
+    return filteredDatabase;
+}
 
 console.log(verifyCredentials(users[0].username, users[0].password, users));
 console.log(verifyCredentials("JohnDenver", "password", users));

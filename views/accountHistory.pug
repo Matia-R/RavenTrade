@@ -8,24 +8,14 @@ block content
         You can view your Account History from here.
     #content-text
       h1 History
-      button#filter-by-date.big-btn Filter by Date
-      button#filter-by-action.big-btn Filter by Action
-      button#clear-filters.big-btn Clear Filters
+      button(onclick="fetch('/accountHistory/clearFilters', { method: 'PATCH'}); document.location.reload();")#filter-by-date.big-btn Filter by Date
+      button(onclick="fetch('/accountHistory/filterByAction', { method: 'PATCH'}); document.location.reload();")#filter-by-action.big-btn Filter by Action
+      button(onclick="fetch('/accountHistory/clearFilters', { method: 'PATCH'}); document.location.reload();")#clear-filters.big-btn Clear Filters
       #acc-list-section
         - var n = 0
         ul#acc-history-list.alerts-list
           each log in accHis.logs
             li(tabindex = n++) #{log}
           br
-          //- li: include accHisInfo
-          //- li: include accHisInfo
-          //- li: include accHisInfo
-          //- li: include accHisInfo
-          //- li: include accHisInfo
-          //- li: include accHisInfo
-          //- li: include accHisInfo
-          //- li: include accHisInfo
-          //- li: include accHisInfo
-          //- li: include accHisInfo
 
     

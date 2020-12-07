@@ -16,16 +16,28 @@ router.get('/', function(req, res, next) {
   }
 });
 
+router.patch('/filterByAction', (req, res, next) =>{
+  //gets filtered list of account history by action/type
+  model.getCurrUser().filterByEvent();
+  history = {
+    logs: model.getCurrUser().logsToString()
+  }
+  res.status(201);
+  res.send("Patched");
+});
+
+router.patch('/clearFilters', (req, res, next) =>{
+  //gets unfiltered list of account history 
+  model.getCurrUser().clearFilters();
+  history = {
+    logs: model.getCurrUser().logsToString()
+  }
+  res.status(201);
+  res.send("Patched");
+});
+
 router.get('/', (req, res, next) =>{
   //gets filtered list of account history by date
-});
-
-router.get('/', (req, res, next) =>{
-  //gets filtered list of account history by action/type
-});
-
-router.get('/', (req, res, next) =>{
-  //gets list with filters cleared
 });
 
 module.exports = router;

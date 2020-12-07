@@ -21,7 +21,6 @@ router.post('/place-order', (req, res, next) =>{
     var symbol = req.body.stockSymbol;
     var threshold = req.body.threshold;
     var numShares = req.body.numShares;
-    console.log('Here');
     var typeOrderString = req.body.buySell;
     console.log('Got Past: '+typeOrderString);
     var expiry = false;
