@@ -16,17 +16,13 @@ router.get('/', function(req, res, next) {
 
 router.post('/place-order', (req, res, next) =>{
   res.status(200);
-  console.log(req.body.stockSymbol);
-  console.log("got to post");
+  console.log(model.isValidSymbol(req.body.stockSymbol));
   if (model.isValidSymbol(req.body.stockSymbol)) {
     console.log("valid order");
-    res.redirect("./portfolio");
+    res.redirect("../portfolio");
   } else {
     res.redirect('./');
-    window.confirm("Invalid Input");
   }
-  //res.redirect('./');
-  //res.send(201)
 });
 
 module.exports = router;

@@ -564,9 +564,12 @@ console.log("\nPortfolio Balance: \n\n" + users[0].balance)
 
 
 function isValidSymbol(symbol) {
-    console.log("got to isValidSymbol(0)");
+    console.log("got to isValidSymbol()");
+    var isValid = false;
     database.forEach((value) => {
-      if (symbol === value.symbol) return true;  
+      console.log(symbol);
+      console.log(value.symbol);
+      if (String(symbol) === String(value.symbol)) isValid = true;  
     });
-    return false; 
+    return isValid; 
 }
