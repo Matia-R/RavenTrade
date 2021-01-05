@@ -1,71 +1,36 @@
-Date: 14/11/2020
-Project: Stock Market
-Partners: Ethan Brydon (101157918) AND Matia Raspopovic (101155148)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ReadMe
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------
-Setup Instructions (Locally):
-------------------------------------------------------------------------------------------------------------------
+RavenTrade
 
-The Web App runs using an Express Node.js server, so to properly setup the environment ensure Node.js is installed
-on your system and navigate to the root directory in terminal/cmd and enter the following command:
+Authors:
 
-npm install
+-Matia Raspopovic
+-Ethan Brydon
 
-If done correctly, a folder called "node_modules" will have been created in the root directory. These modules
-are required for the server to run and for the app engine to function.
+Stack:
 
-------------------------------------------------------------------------------------------------------------------
-Running the App (Locally):
-------------------------------------------------------------------------------------------------------------------
+-JavaScript
+-Pug
+-CSS
+-Node.js
+-Express.js
 
-------------------------------------------------------------------------------------------------------------------
-Open Stack Information:
-------------------------------------------------------------------------------------------------------------------
+Description:
 
-To access the server OpenStack server which contains our code and other relevant files, open your terminal and enter
-the following command:
+RavenTrade is a stock brokerage firm simulation that aims to emulate some of the features of popular trading platforms like Questrade and WealthSimple. The app provides a set of fictitious stocks that the user can perform transactions with such as buying, selling, and tracking stocks. Each stock has a collection of statistics for the user to view and use to help make financial decisions. The process of buying and selling stocks is closely accurate to real-world brockerages as the user is asked to specify at what time they would like to complete the transaction and the level of volatility at which to abort the transaction when it is ready to be processed.
 
-student@134.117.128.242
+Running:
 
-You will be prompted for a password, enter:
+*Important: you must have Node.js installed on your machine to run RavenTrade*
 
-student
+To install Node.js: https://nodejs.org/en/download/
 
-*note the ip address of the server follows the "@" in the command.
+To run the app, simply open a terminal within the root directory (directory that contains this file) and enter the command 'npm start' (without quotes), now open any browser and enter the URL 'http://localhost:3000/'
 
-To launch the app, enter the command:
+To terminate the program, type ctr + c in your terminal window which will kill the server.
 
-npm start
+Thanks for checking out our project!
 
-Now, open a new terminal and enter the command:
 
-ssh -L 9999:localhost:3000 student@134.117.128.242
-
-*note again the ip address is the same as before.
-
-Now to access the app itself, open a web browser and enter the URL:
-
-localhost:9999
-
-*This is the tunneled port
-
-Should any issues arise, terminate the instance of the server and try again. If any files are missing or serious
-missing-module errors occur (or something to that effect) please contact us at matiaraspopovic@cmail.carleton.ca as
-we do not anticipate this and tested thoroughly.
-
-------------------------------------------------------------------------------------------------------------------
-Additional Features:
-------------------------------------------------------------------------------------------------------------------
-
-- Created CORS error checking, allowing for clients on other ports to do things 
-  on the server.
-
-------------------------------------------------------------------------------------------------------------------
-Important Notes:
-------------------------------------------------------------------------------------------------------------------
-
-Our express works for the user login and create account page, however, we were unable to get our user sessions
-working. As a result, many of our user dependent methods won't run properly; so to show our plan we
-have created all the (post, delete, patch, and get) requests that we plan on using and have outlined what they 
-will do when we have user sessions up and running. Note you can login and create an account without issue - only
-a unique session will not be created on login. 
